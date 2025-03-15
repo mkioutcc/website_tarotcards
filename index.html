@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>詭秘塔羅 | Mystical Tarot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-black text-white overflow-x-hidden min-h-screen">
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+    
+    <header class="relative z-10 py-6 px-4 md:px-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl md:text-4xl font-cinzel text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">詭秘塔羅</h1>
+            <div class="flex items-center space-x-4">
+                <button id="about-btn" class="font-geist-mono text-sm md:text-base text-purple-300 hover:text-white transition-colors">關於</button>
+                <button id="theme-toggle" class="text-purple-300 hover:text-white transition-colors">
+                    <i data-lucide="moon" class="h-5 w-5"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 container mx-auto px-4 pb-20">
+        <section id="intro" class="text-center my-12 md:my-20">
+            <h2 class="text-3xl md:text-5xl font-cinzel mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">神秘的塔羅指引</h2>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto text-gray-300 mb-8">揭示命運的面紗，探索神秘的未知，聆聽塔羅的低語。</p>
+            <div class="glowing-button-wrapper">
+                <button id="start-reading" class="glowing-button text-lg md:text-xl px-8 py-3 rounded-lg bg-gradient-to-r from-purple-700 to-blue-700 hover:from-purple-600 hover:to-blue-600 transition-all duration-300 shadow-lg shadow-purple-900/50">開始占卜</button>
+            </div>
+        </section>
+
+        <section id="reading-section" class="hidden">
+            <div class="mb-10 text-center">
+                <h3 class="text-2xl md:text-3xl font-cinzel mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">選擇一種牌陣</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button class="spread-btn selected" data-cards="1">單卡解讀</button>
+                    <button class="spread-btn" data-cards="3">過去-現在-未來</button>
+                    <button class="spread-btn" data-cards="5">五卡十字陣</button>
+                </div>
+            </div>
+
+            <div id="card-deck" class="flex justify-center mb-12">
+                <div class="relative cursor-pointer tarot-deck-wrapper">
+                    <div class="tarot-deck">
+                        <div class="deck-card"></div>
+                        <div class="deck-card"></div>
+                        <div class="deck-card"></div>
+                        <div class="deck-card"></div>
+                        <div class="deck-card"></div>
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <p class="text-white text-center font-cinzel">點擊抽牌</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="spread-container" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-16">
+                <!-- Cards will be placed here by JavaScript -->
+            </div>
+
+            <div id="reading-result" class="hidden bg-gray-900/80 backdrop-blur-md rounded-xl p-6 border border-purple-800/50">
+                <h3 class="text-2xl md:text-3xl font-cinzel mb-4 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">塔羅解讀</h3>
+                <div id="reading-content" class="space-y-6">
+                    <!-- Reading content will be placed here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="lotm-section" class="hidden mt-20 bg-gray-900/80 backdrop-blur-md rounded-xl p-6 border border-purple-800/50">
+                <h3 class="text-2xl md:text-3xl font-cinzel mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">《詭秘之主》關聯</h3>
+            
+            <div id="lotm-content" class="space-y-6">
+                <!-- LOTM content will be placed here -->
+            </div>
+            
+            <div id="pathway-test" class="mt-10">
+                <h4 class="text-xl font-cinzel mb-4 text-center text-white">你屬於哪條途徑？</h4>
+                <p class="text-gray-300 mb-6 text-center">回答以下問題，探索你在《詭秘之主》世界中的命運...</p>
+                
+                <div id="test-container" class="space-y-6">
+                    <div class="test-question">
+                        <p class="mb-3 text-white">1. 面對未知的秘密，你會：</p>
+                        <div class="flex flex-col space-y-2">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q1" value="fool" class="accent-purple-500">
+                                <span>毫不猶豫地探索，享受探索的樂趣</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q1" value="magician" class="accent-purple-500">
+                                <span>謹慎分析，尋找控制和理解的方法</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q1" value="priestess" class="accent-purple-500">
+                                <span>憑直覺行動，相信自己的內在智慧</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q1" value="moon" class="accent-purple-500">
+                                <span>保持警惕，懷疑一切不符合常理的事物</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="test-question">
+                        <p class="mb-3 text-white">2. 你更倾向於通過什麼方式解决问题：</p>
+                        <div class="flex flex-col space-y-2">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q2" value="emperor" class="accent-purple-500">
+                                <span>建立秩序和規則，依靠權威和結構</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q2" value="justice" class="accent-purple-500">
+                                <span>公平公正地權衡各方利益，尋求平衡</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q2" value="chariot" class="accent-purple-500">
+                                <span>憑藉意志力和決心直接應對挑戰</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q2" value="hermit" class="accent-purple-500">
+                                <span>獨立思考，深入研究以找到最佳方案</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="test-question">
+                        <p class="mb-3 text-white">3. 在危险情况下，你會：</p>
+                        <div class="flex flex-col space-y-2">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q3" value="strength" class="accent-purple-500">
+                                <span>保持冷靜，用內在力量和耐心應對</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q3" value="tower" class="accent-purple-500">
+                                <span>接受突變，從混亂中尋找新的機會</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q3" value="devil" class="accent-purple-500">
+                                <span>利用一切可能的資源，不惜代價求生</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="radio" name="q3" value="death" class="accent-purple-500">
+                                <span>接受命運安排，準備迎接轉變和新生</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button id="test-submit" class="w-full py-3 rounded-lg bg-gradient-to-r from-purple-700 to-blue-700 hover:from-purple-600 hover:to-blue-600 transition-all duration-300 shadow-lg shadow-purple-900/50">揭曉結果</button>
+                </div>
+                
+                <div id="test-result" class="hidden mt-6 bg-gray-800/60 p-6 rounded-lg">
+                    <!-- Test result will be placed here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="about-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center px-4">
+        <div class="bg-gray-900/95 backdrop-blur-lg max-w-2xl w-full rounded-xl p-6 md:p-8 border border-purple-800/50">
+            <h3 class="text-2xl font-cinzel mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">關於詭秘塔羅</h3>
+            <p class="text-gray-300 mb-4">「詭秘塔羅」是一個融合傳統塔羅牌與《詭秘之主》小說世界觀的神秘占卜網站。在這裡，古老的塔羅智慧與克萊恩的冒險旅程交織，為您揭示命運的面紗。</p>
+            <p class="text-gray-300 mb-4">網站結合了科幻與神秘的視覺風格，為用戶提供獨特的塔羅體驗。您可以選擇不同的牌陣進行占卜，並獲得結合《詭秘之主》元素的個性化解讀。</p>
+            <p class="text-gray-300 mb-6">本網站僅供娛樂，塔羅牌解讀不應替代專業建議。《詭秘之主》元素基於愛好者理解，與原著可能存在差異。</p>
+            <button id="close-about" class="w-full py-3 rounded-lg bg-gradient-to-r from-purple-700 to-blue-700 hover:from-purple-600 hover:to-blue-600 transition-all duration-300">關閉</button>
+        </div>
+    </div>
+    
+    <footer class="relative z-10 py-4 text-center text-gray-400 text-sm">
+        <p>Built with <a href="https://github.com/" target="_blank" class="text-purple-400 hover:text-purple-300 transition-colors">muyi.</a></p>
+    </footer>
+
+    <script src="tarot-data.js"></script>
+    <script src="lotm-data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        window.addEventListener("wheel", (e)=> {
+            const isPinching = e.ctrlKey
+            if(isPinching) e.preventDefault()
+        }, { passive: false })
+        
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

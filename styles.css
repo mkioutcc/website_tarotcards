@@ -1,0 +1,437 @@
+/* Base Styles */
+:root {
+    --color-purple: #9333ea;
+    --color-blue: #3b82f6;
+    --color-dark: #0f0f1a;
+    --color-darker: #080810;
+}
+
+@font-face {
+    font-family: 'Geist Mono';
+    src: url('https://cdn.jsdelivr.net/npm/geist-font@latest/dist/fonts/geist-mono/GeistMono-Regular.woff2') format('woff2');
+}
+
+.font-geist-mono {
+    font-family: 'Geist Mono', monospace;
+}
+
+.font-cinzel {
+    font-family: 'Cinzel', serif;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-darker);
+    overflow-x: hidden;
+    background-image: url('background.svg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Stars Animation */
+.stars, .stars2, .stars3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.stars {
+    background: transparent url(http://salehriaz.com/404Page/img/overlay_stars.svg) repeat top center;
+    animation: move-twink-back 200s linear infinite;
+}
+
+.stars2 {
+    background: transparent url(http://salehriaz.com/404Page/img/overlay_stars.svg) repeat top center;
+    animation: move-twink-back 300s linear infinite;
+    opacity: 0.4;
+}
+
+.stars3 {
+    background: transparent url(http://salehriaz.com/404Page/img/overlay_stars.svg) repeat top center;
+    animation: move-twink-back 400s linear infinite;
+    opacity: 0.2;
+}
+
+@keyframes move-twink-back {
+    from {background-position: 0 0;}
+    to {background-position: -10000px 5000px;}
+}
+
+/* Glowing Button Effect */
+.glowing-button-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.glowing-button-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, var(--color-purple), var(--color-blue), var(--color-purple));
+    border-radius: 0.5rem;
+    filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.glowing-button-wrapper:hover::before {
+    opacity: 0.7;
+}
+
+/* Tarot Card Deck */
+.tarot-deck-wrapper {
+    width: 220px;
+    height: 380px;
+    perspective: 1000px;
+    transition: transform 0.3s ease;
+}
+
+.tarot-deck-wrapper:hover {
+    transform: translateY(-10px);
+}
+
+.tarot-deck {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.deck-card {
+    position: absolute;
+    width: 220px;
+    height: 380px;
+    background-color: #1c1c2a;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-image: url('card-back.svg');
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease;
+}
+
+.deck-card:nth-child(1) {
+    transform: translateZ(-4px);
+}
+
+.deck-card:nth-child(2) {
+    transform: translateZ(-3px) translateX(2px);
+}
+
+.deck-card:nth-child(3) {
+    transform: translateZ(-2px) translateX(4px);
+}
+
+.deck-card:nth-child(4) {
+    transform: translateZ(-1px) translateX(6px);
+}
+
+.deck-card:nth-child(5) {
+    transform: translateZ(0) translateX(8px);
+}
+
+.tarot-deck-wrapper:hover .deck-card:nth-child(1) {
+    transform: translateZ(-8px);
+}
+
+.tarot-deck-wrapper:hover .deck-card:nth-child(2) {
+    transform: translateZ(-6px) translateX(4px);
+}
+
+.tarot-deck-wrapper:hover .deck-card:nth-child(3) {
+    transform: translateZ(-4px) translateX(8px);
+}
+
+.tarot-deck-wrapper:hover .deck-card:nth-child(4) {
+    transform: translateZ(-2px) translateX(12px);
+}
+
+.tarot-deck-wrapper:hover .deck-card:nth-child(5) {
+    transform: translateZ(0) translateX(16px);
+}
+
+/* Spread Buttons */
+.spread-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: rgba(30, 30, 50, 0.6);
+    border: 1px solid rgba(147, 51, 234, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    font-family: 'Geist Mono', monospace;
+    backdrop-filter: blur(10px);
+}
+
+.spread-btn:hover {
+    background-color: rgba(147, 51, 234, 0.2);
+    border-color: rgba(147, 51, 234, 0.5);
+    color: white;
+}
+
+.spread-btn.selected {
+    background-color: rgba(147, 51, 234, 0.3);
+    border-color: rgba(147, 51, 234, 0.8);
+    color: white;
+    box-shadow: 0 0 10px rgba(147, 51, 234, 0.3);
+}
+
+/* Tarot Card */
+.tarot-card {
+    width: 100%;
+    aspect-ratio: 10/17;
+    max-width: 220px;
+    margin: 0 auto;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.tarot-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tarot-card.flipped .tarot-card-inner {
+    transform: rotateY(180deg);
+}
+
+.tarot-card-front, .tarot-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tarot-card-front {
+    background-color: #1c1c2a;
+    background-image: url('card-back.svg');
+    background-size: cover;
+    background-position: center;
+}
+
+.tarot-card-back {
+    background-color: #1a1a2e;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #2a2a4e, #1a1a2e);
+    margin-bottom: 0.5rem;
+}
+
+.card-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.card-title {
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+    font-weight: bold;
+    color: #e2e2e2;
+}
+
+.card-subtitle {
+    font-family: 'Geist Mono', monospace;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #a0a0a0;
+}
+
+.card-position {
+    position: absolute;
+    top: -1.5rem;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Geist Mono', monospace;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tarot-card.flipped .card-position {
+    opacity: 1;
+}
+
+/* Card Placeholder */
+.card-placeholder {
+    width: 100%;
+    aspect-ratio: 10/17;
+    max-width: 220px;
+    margin: 0 auto;
+    border: 2px dashed rgba(147, 51, 234, 0.3);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(30, 30, 50, 0.2);
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.8rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    #spread-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .tarot-card {
+        max-width: 150px;
+    }
+    
+    .card-title {
+        font-size: 0.8rem;
+    }
+    
+    .card-subtitle {
+        font-size: 0.6rem;
+    }
+}
+
+/* Reversed Card */
+.tarot-card.reversed .tarot-card-back {
+    transform: rotateY(180deg) rotate(180deg);
+}
+
+.tarot-card.reversed .card-subtitle {
+    color: #f08080;
+}
+
+/* Pathway Test Styles */
+.test-question {
+    background-color: rgba(30, 30, 50, 0.4);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid rgba(147, 51, 234, 0.2);
+}
+
+/* Loading Spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--color-purple);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Hover effects */
+a:hover, button:hover {
+    opacity: 0.9;
+}
+
+/* About Modal */
+#about-modal {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+/* Create the card layout for five card cross */
+#spread-container.cross-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 1rem;
+    justify-items: center;
+}
+
+#spread-container.cross-layout .tarot-card:nth-child(1),
+#spread-container.cross-layout .card-placeholder:nth-child(1) {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#spread-container.cross-layout .tarot-card:nth-child(2),
+#spread-container.cross-layout .card-placeholder:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#spread-container.cross-layout .tarot-card:nth-child(3),
+#spread-container.cross-layout .card-placeholder:nth-child(3) {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#spread-container.cross-layout .tarot-card:nth-child(4),
+#spread-container.cross-layout .card-placeholder:nth-child(4) {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+#spread-container.cross-layout .tarot-card:nth-child(5),
+#spread-container.cross-layout .card-placeholder:nth-child(5) {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+/* Card hover effects */
+.tarot-card:hover .tarot-card-inner {
+    box-shadow: 0 8px 16px rgba(147, 51, 234, 0.3);
+}
+
+/* Card drawing animation */
+@keyframes drawCard {
+    0% {
+        transform: translateZ(0) translateX(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateZ(20px) translateX(300px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* Mystic glow effects */
+.mystic-glow {
+    position: relative;
+}
+
+.mystic-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 15px 2px rgba(147, 51, 234, 0.5);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.mystic-glow:hover::after {
+    opacity: 1;
+}
